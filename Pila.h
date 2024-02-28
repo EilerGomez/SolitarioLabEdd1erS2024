@@ -1,15 +1,8 @@
-#ifndef PILA_H
-#define PILA_H
+#ifndef ENTORNOJUEGO_H
+#define  ENTORNOJUEGO_H
 
-#include "Carta.h"
-
-class Pila {
-private:
-    Carta carta;
-    Pila *siguiente;
-
-public:
-    Pila();
+#include "Nodo.h"
+class Pila{
+    Nodo *lista;
 };
-
 #endif

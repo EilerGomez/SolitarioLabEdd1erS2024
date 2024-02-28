@@ -1,6 +1,16 @@
 #include "Cola.h"
-#include<iostream>
+#include "Carta.h"
+#include <iostream>
 
-using namespace std;
 
-Cola::Cola(){}
+
+    /*void Cola::agregarNodoCola(Carta carta){
+        Nodo *nuevo = new Nodo();
+        if(this->primero==nullptr){
+            this->primero=this->ultimo=nuevo;
+        }else{
+            this->ultimo->siguiente=nuevo;
+            this->ultimo=nuevo;
+        }
+    }*/
+

@@ -9,15 +9,18 @@ class Carta{
         string nombre;
         string color;
         string tipo;
+        bool usada;
 
     public:
-        Carta(const string acci,string nombre, string color, string tipo);
+        Carta(const string acci,string nombre, string color, string tipo, bool usada);
         Carta();
         void mostrarInfo();
         string getAcci();
         string getNombre();
         string getColor();
         string getTipo();
+        bool getUsada();
+        void setUsada(bool usadais);
 
 
 };

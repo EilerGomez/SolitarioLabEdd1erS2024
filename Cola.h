@@ -1,14 +1,17 @@
-#ifndef COLA_H
-#define COLA_H
-
+#ifndef ENTORNOJUEGO_H
+#define  ENTORNOJUEGO_H
 #include "Carta.h"
-class Cola{
-    private:
-        Carta carta;
-        Cola *siguiente;
+#include "Nodo.h"
 
+class Cola{
     public:
-        Cola();
+
+        Nodo *primero=nullptr;
+        Nodo *ultimo=nullptr;
+
+        
+        void agregarNodoCola(Carta carta);
+
 };
 
 #endif
