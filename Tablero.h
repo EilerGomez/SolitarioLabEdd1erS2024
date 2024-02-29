@@ -10,8 +10,9 @@ class Tablero{
         Tablero();
         void ejecutar();
         void mostrarCartas(Carta cartasArray[]);
-        void imprimirCabezal(Nodo* &cola1, Nodo* &cola2, Nodo* &pila1, Nodo* &pila2, Nodo* &pila3, Nodo* &pila4);
+        void imprimirCabezal(Nodo* &cola1, Nodo* &cola2, Nodo* &pila1, Nodo* &pila2, Nodo* &pila3, Nodo* &pila4, Carta cartaMostrando);
         void imprimirNodo(Nodo * &cola);
+        Carta pop(Nodo* &primeroCola1);
         
 };
 #endif

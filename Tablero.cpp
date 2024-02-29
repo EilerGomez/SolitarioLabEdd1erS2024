@@ -72,7 +72,7 @@ Tablero::Tablero(){
     //mostrarCartas(cartas);
    
 }
-void Tablero::imprimirCabezal(Nodo* &cola1, Nodo* &cola2,Nodo* &pila1, Nodo* &pila2, Nodo* &pila3, Nodo* &pila4){
+void Tablero::imprimirCabezal(Nodo* &cola1, Nodo* &cola2,Nodo* &pila1, Nodo* &pila2, Nodo* &pila3, Nodo* &pila4, Carta cartaMostrando){
     for(int i=0;i<7;i++){
         cout<<"|--------|";
     }
@@ -83,7 +83,7 @@ void Tablero::imprimirCabezal(Nodo* &cola1, Nodo* &cola2,Nodo* &pila1, Nodo* &pi
         tmp=tmp->siguiente;
     }*/
 
-    cout<<"|__"<<cola1->carta.getAcci()<<"__|";//impresion de cola 1
+    cout<<"|********|";//impresion de cola 1
 
     if(cola2==nullptr){//impresion de cola2
         cout<<"|        |";
@@ -132,6 +132,18 @@ void Tablero::imprimirNodo(Nodo* &cola){
         cout<<tmp->carta.getAcci()<<endl;
         tmp->siguiente;
     }
+}
+
+Carta Tablero:: pop(Nodo* &primeroCola1) {
+    Carta tmpcarta = primeroCola1->carta;
+        if (primeroCola1 != nullptr) {
+            Nodo* temp = primeroCola1;
+            primeroCola1 = primeroCola1->siguiente;
+            delete temp;
+        } else {
+            std::cout << "La cola está vacía." << std::endl;
+        }
+    return tmpcarta;
 }
 /*
 void Tablero::imprimirCabezal(Cola *cola1arr){
