@@ -14,12 +14,14 @@ class EntornoDeJuego{
         Carta cartaMostrando;
         EntornoDeJuego();
 
-        void generarCola1ConCartas();
-        void generarPilasConCartas(Nodo* &pilaG, int numCartas);
+        void generarCola1ConCartas(int num);
+        void generarPilasConCartas(Nodo* &pilaG, int numInit, int numFinish);
         void agregarNodoCola(Nodo* &primero, Nodo* &ultimo, Carta carta);
         void imprimirCabezal(Nodo *cola);
         void agregarNodoAPila(Nodo* &Pila, Carta carta);
+        void agregarNodoAPilaDobleEnlace(Nodo* &pila, Carta carta);
         void Menu();
+        void inicializarPrimeraCartaVisible(Nodo* &PilaVar);
         
 };
 #endif

@@ -9,7 +9,7 @@ class Carta{
         string nombre;
         string color;
         string tipo;
-        bool usada;
+        bool mostrar;
 
     public:
         Carta(const string acci,string nombre, string color, string tipo, bool usada);
@@ -19,8 +19,8 @@ class Carta{
         string getNombre();
         string getColor();
         string getTipo();
-        bool getUsada();
-        void setUsada(bool usadais);
+        bool getMostrar();
+        void setMostrar(bool usadais);
 
 
 };

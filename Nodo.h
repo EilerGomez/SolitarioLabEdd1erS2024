@@ -5,6 +5,7 @@ class Nodo{
     public:
         Carta carta;
         Nodo *siguiente;
+        Nodo *anterior;
         Nodo();
         Nodo(const Carta carta);
 };

@@ -1,15 +1,20 @@
 #include "Tablero.h"
 #include "Carta.h"
 #include "Cola.h"
+#include "EntornoDeJuego.h"
 #include "Nodo.h"
 #include<iostream>
 #include <iterator>
 #include<cstdlib>
 #include<ctime>
+#include <algorithm>
+#include <array>
+#include <random>
 using namespace std;
 
 void Tablero::mostrarCartas(Carta cartasArray[]){
      for (int i=0; i<52; i++) {
+        cout<<i+1<<".";
         cartasArray[i].mostrarInfo();
     }
 }
@@ -70,67 +75,78 @@ Tablero::Tablero(){
     cartas[50]=*new Carta("Q!!N","Cuina","Negro","Espadas",false);
     cartas[51]=*new Carta("K!!N","Rey","Negro","Espadas",false);
     //mostrarCartas(cartas);
+    ordenarcartasAleatorias();
+   // mostrarCartas(cartas);
    
+}
+
+void Tablero::ordenarcartasAleatorias(){
+    array<Carta, 52> listacartas ={};
+    for(int i=0;i<52;i++){
+        listacartas[i]=cartas[i];
+    }
+    size_t tamano = listacartas.size();
+    random_device rd;
+    mt19937 generador(rd());
+    shuffle(listacartas.begin(), listacartas.end(), generador);
+
+    for(int i=0; i<52;i++){
+        cartas[i]=listacartas[i];
+    }
 }
 void Tablero::imprimirCabezal(Nodo* &cola1, Nodo* &cola2,Nodo* &pila1, Nodo* &pila2, Nodo* &pila3, Nodo* &pila4, Carta cartaMostrando){
     for(int i=0;i<7;i++){
-        cout<<"|--------|";
-    }
-    cout<<endl;
-    /*Nodo *tmp=cola;
-    while(tmp != nullptr){
-        cout<<tmp->carta.getAcci()<<endl;
-        tmp=tmp->siguiente;
-    }*/
-
-    cout<<"|********|";//impresion de cola 1
-
-    if(cola2==nullptr){//impresion de cola2
-        cout<<"|        |";
-    }else{
-        cout<<"|__"<<cola2->carta.getAcci()<<"__|";
-    }
-
-    //impresion de espacio vacio
-    cout<<"|        |";
-    //impresion de cola1
-    if(pila1==nullptr){
-        cout<<"|        |";
-    }else{
-        cout<<"|__"<<pila1->carta.getAcci()<<"__|";
-    }
-    
-    //impresion de pila 2
-    if(pila2==nullptr){
-        cout<<"|        |";
-    }else{
-        cout<<"|__"<<pila2->carta.getAcci()<<"__|";
-    }
-    //impresion de pila3
-    if(pila3==nullptr){
-        cout<<"|        |";
-    }else{
-        cout<<"|__"<<pila3->carta.getAcci()<<"__|";
-    }
-    //impresion de pila4
-    if(pila4==nullptr){
-        cout<<"|        |";
-    }else{
-        cout<<"|__"<<pila4->carta.getAcci()<<"__|";
+        cout<<"__________";
     }
     cout<<endl;
     for(int i=0;i<7;i++){
-        cout<<"|________|";
+        cout<<"|        |";
+    }
+    cout<<endl;
+    if(cola1!=nullptr){
+        cout<<"| ****** |";//impresion de cola 1
+
+    }else{
+        cout<<"|        |";
+    }
+
+    imprimirColaOPilaCabezal(cola2);
+    cout<<"|        |";//espacio en blanco
+    //impresion de pilas
+    imprimirColaOPilaCabezal(pila1);//pila1
+    imprimirColaOPilaCabezal(pila2);//pila2
+    imprimirColaOPilaCabezal(pila3);//pila3
+    imprimirColaOPilaCabezal(pila4);//pila4
+    cout<<endl;
+    for(int i=0;i<7;i++){
+            cout<<"|________|";
+        
     }
     cout<<endl;
 
+}
+
+void Tablero::imprimirColaOPilaCabezal(Nodo* &colatmp){
+    if(colatmp==nullptr){
+        cout<<"|        |";
+    }else{
+        if(colatmp->carta.getAcci().length()>4){
+            cout<<"|  "<<colatmp->carta.getAcci()<<" |";
+        }else{
+            cout<<"|  "<<colatmp->carta.getAcci()<<"  |";
+        }   
+    }
 }
 
 void Tablero::imprimirNodo(Nodo* &cola){
     Nodo *tmp=cola;
+    int i=1;
+    cout<<"las cartas que tiene el macho"<<endl;
     while(tmp != nullptr){
-        cout<<tmp->carta.getAcci()<<endl;
-        tmp->siguiente;
+        cout<<i<<". ";
+        tmp->carta.mostrarInfo();
+        tmp=tmp->siguiente;
+        i++;
     }
 }
 
@@ -144,6 +160,77 @@ Carta Tablero:: pop(Nodo* &primeroCola1) {
             std::cout << "La cola está vacía." << std::endl;
         }
     return tmpcarta;
+}
+
+void Tablero::imprimirPie(Nodo* &pila5, Nodo* &pila6, Nodo* &pila7, Nodo* &pila8, Nodo* &pila9, Nodo* &pila10, Nodo* &pila11){
+    Nodo *pila5tmp=pila5;
+    Nodo *pila6tmp=pila6;
+    Nodo *pila7tmp=pila7;
+    Nodo *pila8tmp=pila8;
+    Nodo *pila9tmp=pila9;
+    Nodo *pila10tmp=pila10;
+    Nodo *pila11tmp=pila11;
+    llevarAlUltimo(pila5tmp);
+    llevarAlUltimo(pila6tmp);
+    llevarAlUltimo(pila7tmp);
+    llevarAlUltimo(pila8tmp);
+    llevarAlUltimo(pila9tmp);
+    llevarAlUltimo(pila10tmp);
+    llevarAlUltimo(pila11tmp);
+    for(int i=0;i<7;i++){
+        if(i==0){
+            cout<<"|_________";
+        }else if(i==6){
+            cout<<"_________|";
+        }else{
+            cout<<"__________";
+        }
+    }
+    cout<<endl;
+    for(int i=0;i<7;i++){
+        imprimirNodoPila((pila5tmp));
+        imprimirNodoPila((pila6tmp));
+        imprimirNodoPila((pila7tmp));
+        imprimirNodoPila((pila8tmp));
+        imprimirNodoPila((pila9tmp));
+        imprimirNodoPila((pila10tmp));
+        imprimirNodoPila((pila11tmp));
+        cout<<endl;
+    }
+    for(int i=0;i<7;i++){
+        if(i==0){
+            cout<<"|_________";
+        }else if(i==6){
+            cout<<"_________|";
+        }else{
+            cout<<"__________";
+        }
+    }
+    cout<<endl;
+}
+void Tablero::llevarAlUltimo(Nodo* &pila){
+    
+    while (pila->siguiente!=nullptr) {
+        pila=pila->siguiente;
+    }
+}
+void Tablero::imprimirNodoPila(Nodo* &pila){
+    
+    if(pila==nullptr){
+        cout<<"|        |";
+    }else{
+        if(pila->carta.getMostrar()){            
+            if(pila->carta.getAcci().length()>4){
+                cout<<"|  "<<pila->carta.getAcci()<<" |";
+            }else{
+                cout<<"|  "<<pila->carta.getAcci()<<"  |";
+            } 
+        }else{
+            cout<<"| ****** |";
+        }       
+        pila=pila->anterior;
+    }
+    
 }
 /*
 void Tablero::imprimirCabezal(Cola *cola1arr){

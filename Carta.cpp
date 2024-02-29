@@ -4,12 +4,12 @@
 using namespace std;
 
 
-Carta::Carta(const string acci, string nombre, string color, string tipo, bool usada){
+Carta::Carta(const string acci, string nombre, string color, string tipo, bool mostrar){
     this->acci=acci;
     this->nombre=nombre;
     this->color=color;
     this->tipo=tipo;
-    this->usada=usada;
+    this->mostrar=mostrar;
 }
 
 Carta::Carta(){}
@@ -34,10 +34,10 @@ string Carta::getTipo(){
     return this->tipo;
 }
 
-bool Carta::getUsada(){
-    return this->usada;
+bool Carta::getMostrar(){
+    return this->mostrar;
 }
 
-void Carta::setUsada(bool usada){
-    this->usada=usada;
+void Carta::setMostrar(bool mostrar){
+    this->mostrar=mostrar;
 }
