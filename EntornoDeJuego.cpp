@@ -1,6 +1,4 @@
 #include "EntornoDeJuego.h"
-#include "Carta.h"
-#include "Tablero.h"
 #include <cstdlib>
 #include<iostream>
 #include <list>
@@ -55,14 +53,14 @@ void EntornoDeJuego::inicializarPrimeraCartaVisible(Nodo* &PilaVar){
 }
 
 void EntornoDeJuego::agregarNodoCola(Nodo* &primero, Nodo* &ultimo, Carta carta){
-    Nodo *nuevo = new Nodo(carta);
-    //cout<<"agregando la carta: "<<carta.getAcci()<<endl;
-    if(ultimo==nullptr){
-        primero=ultimo=nuevo;
-        primero->siguiente=ultimo;
-    }else{
-        ultimo->siguiente=nuevo;
-        ultimo=nuevo;
+ Nodo* nuevo = new Nodo(carta);
+    if (ultimo == nullptr) {
+        primero = ultimo = nuevo;
+        ultimo->siguiente=nullptr;
+    } else {
+        ultimo->siguiente = nuevo;
+        ultimo = nuevo;
+        ultimo->siguiente = nullptr;  // Asegúrate de asignar nullptr al siguiente del último nodo.
     }
 }
 void EntornoDeJuego::generarCola1ConCartas(int numCartas){
@@ -102,8 +100,8 @@ void EntornoDeJuego::Menu(){
         tablero.imprimirCabezal(primeroCola1,ultimoCola2, pila1, pila2,pila3,pila4,cartaMostrando);
         tablero.imprimirPie(pila5, pila6,pila7, pila8, pila9, pila10, pila11);
         cout<<"Ingrese una opcion:"<<endl;
-        cout<<"1.Sacar carta."<<endl<<"2.Hacer movimiento"<<endl<<"-1. Salir"<<endl;
-        cout<<"DARLE UN TAMANIO DINAMICO AL TABLERO QUE SEA EL NUMERO DE LISTA MAS GRANDE"<<endl;
+        cout<<"1.Sacar carta del MACHO."<<endl<<"2.Hacer movimiento del MACHO"<<endl<<"-1. Salir"<<endl;
+        cout<<"HACER MOVIMIENTO ENTRE SECCIONES!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"<<endl;
         cin>>opcion;
         switch (opcion) {
             case 1:
@@ -117,9 +115,28 @@ void EntornoDeJuego::Menu(){
                 }else{
                     agregarNodoCola(primeroCola2, ultimoCola2,tablero.pop(primeroCola1));
 
+                    tablero.imprimirNodo(primeroCola2);
                 }
                 break;
             case 2:
+                if(primeroCola2!=nullptr){
+                    int seccion;
+                    cout<<"Mover del MACHO a la seccion: ";
+                    cin>>seccion;
+                    if(seccion==1||seccion==2||seccion==3||seccion==4){//movimiento del macho a cabezales
+                        if(movimiento.movimientoDeMachoAPilasCabezales(ultimoCola2, pila1, pila2, pila3, pila4, seccion)){
+                            tablero.eliminarUltimoDeCola(primeroCola2, ultimoCola2);
+                            cout<<"se ha eliminado el ultimo elemento del macho"<<endl;
+                        }
+                        
+                    }else if(seccion==5||seccion==6||seccion==7||seccion==8||seccion==9||seccion==10||seccion==11){
+                        //metodo de macho a pilas inferiores
+                        if(movimiento.movimientoDeMachoAPilasInferiores(ultimoCola2, pila5, pila6, pila7, pila8, pila9, pila10, pila11, seccion)){
+                            tablero.eliminarUltimoDeCola(primeroCola2, ultimoCola2);
+                            cout<<"se ha eliminado el ultimo elemento del macho"<<endl;
+                        }
+                    }
+                }
                 break;
             default:
                 break;

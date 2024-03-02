@@ -2,10 +2,13 @@
 #define  ENTORNOjUEJO_H
 
 #include "Carta.h"
-#include "Cola.h"
+#include "Movimientos.h"
+#include "Nodo.h"
 #include "Tablero.h"
+
 class EntornoDeJuego{
     public:
+        Movimientos movimiento;
         Tablero tablero;
         Nodo *cola1, *primeroCola1,*ultimoCola1;
         Nodo *cola2, *primeroCola2, *ultimoCola2;

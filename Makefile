@@ -5,8 +5,9 @@ TARGET = programa
 #all
 all: .all-post
 
-.all-post: Carta.o Pila.o Cola.o Tablero.o Main.o Nodo.o EntornoDeJuego.o#main es el principal o main
-	$(CXX) Carta.o Pila.o Cola.o Tablero.o Main.o Nodo.o EntornoDeJuego.o -o $(TARGET)
+.all-post: Carta.o Pila.o Cola.o Tablero.o Main.o Nodo.o EntornoDeJuego.o Movimientos.o #main es el principal o main
+	$(CXX) Carta.o Pila.o Cola.o Tablero.o Main.o Nodo.o EntornoDeJuego.o Movimientos.o -o $(TARGET)
+
 
 
 Carta.o: Carta.cpp Carta.h
@@ -27,6 +28,9 @@ Nodo.o: Nodo.cpp Nodo.o
 
 EntornoDeJuego.o: EntornoDeJuego.cpp EntornoDeJuego.o
 	$(CXX) -c EntornoDeJuego.cpp
+
+Movimientos.o: Movimientos.cpp Movimientos.o
+	$(CXX) -c Movimientos.cpp
 
 clean:
 	$(RM) *.o saludo core

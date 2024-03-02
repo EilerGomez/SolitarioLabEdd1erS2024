@@ -1,8 +1,4 @@
 #include "Tablero.h"
-#include "Carta.h"
-#include "Cola.h"
-#include "EntornoDeJuego.h"
-#include "Nodo.h"
 #include<iostream>
 #include <iterator>
 #include<cstdlib>
@@ -50,7 +46,7 @@ Tablero::Tablero(){
     cartas[27]=*new Carta("2E3N","Dos","Negro","Treboles",false);
     cartas[28]=*new Carta("3E3N","Tres","Negro","Treboles",false);
     cartas[29]=*new Carta("4E3N","Cuatro","Negro","Treboles",false);
-    cartas[30]=*new Carta("5E3N","Cinco","Negro","Trebole",false);
+    cartas[30]=*new Carta("5E3N","Cinco","Negro","Treboles",false);
     cartas[31]=*new Carta("6E3N","Seis","Negro","Treboles",false);
     cartas[32]=*new Carta("7E3N","Siete","Negro","Treboles",false);
     cartas[33]=*new Carta("8E3N","Ocho","Negro","Treboles",false);
@@ -96,7 +92,21 @@ void Tablero::ordenarcartasAleatorias(){
 }
 void Tablero::imprimirCabezal(Nodo* &cola1, Nodo* &cola2,Nodo* &pila1, Nodo* &pila2, Nodo* &pila3, Nodo* &pila4, Carta cartaMostrando){
     for(int i=0;i<7;i++){
-        cout<<"__________";
+        if(i==1){
+            cout<<"___MACHO__";
+        }else if(i==3){
+            cout<<"____S1____";
+        }
+        else if(i==4){
+            cout<<"____S2____";
+        }else if(i==5){
+            cout<<"____S3____";
+        }else if(i==6){
+            cout<<"____S4____";
+        }else{
+            cout<<"__________";
+        }
+        
     }
     cout<<endl;
     for(int i=0;i<7;i++){
@@ -141,7 +151,6 @@ void Tablero::imprimirColaOPilaCabezal(Nodo* &colatmp){
 void Tablero::imprimirNodo(Nodo* &cola){
     Nodo *tmp=cola;
     int i=1;
-    cout<<"las cartas que tiene el macho"<<endl;
     while(tmp != nullptr){
         cout<<i<<". ";
         tmp->carta.mostrarInfo();
@@ -187,7 +196,7 @@ void Tablero::imprimirPie(Nodo* &pila5, Nodo* &pila6, Nodo* &pila7, Nodo* &pila8
         }
     }
     cout<<endl;
-    for(int i=0;i<7;i++){
+    for(int i=0;i<tamanioMasGrandeDeLista(pila5, pila6, pila7, pila8, pila9, pila10, pila11);i++){
         imprimirNodoPila((pila5tmp));
         imprimirNodoPila((pila6tmp));
         imprimirNodoPila((pila7tmp));
@@ -197,14 +206,13 @@ void Tablero::imprimirPie(Nodo* &pila5, Nodo* &pila6, Nodo* &pila7, Nodo* &pila8
         imprimirNodoPila((pila11tmp));
         cout<<endl;
     }
-    for(int i=0;i<7;i++){
-        if(i==0){
-            cout<<"|_________";
-        }else if(i==6){
-            cout<<"_________|";
+    for(int i=5;i<12;i++){
+        if(i==10 || i==11){
+            cout<<"____S"<<i<<"___";
         }else{
-            cout<<"__________";
+            cout<<"____S"<<i<<"____";
         }
+        
     }
     cout<<endl;
 }
@@ -232,37 +240,88 @@ void Tablero::imprimirNodoPila(Nodo* &pila){
     }
     
 }
-/*
-void Tablero::imprimirCabezal(Cola *cola1arr){
-    Cola *colaTemp=cola1arr;
-    while(colaTemp != nullptr){
-        cout<<colaTemp->carta.getAcci()<<endl;
-        colaTemp->siguiente;
+int Tablero::medirTamanio(Nodo* &pila){
+    Nodo* tmp=pila;
+    int i=1;
+    while(tmp!=nullptr){
+        
+        tmp=tmp->siguiente;
+        i++;
     }
+    return i;
 }
+ int Tablero::tamanioMasGrandeDeLista(Nodo* &pila5,Nodo* &pila6, Nodo* &pila7, Nodo* &pila8,Nodo* &pila9, Nodo * &pila10, Nodo* &pila11){
+    int max=0;
+    int aux=0;
+    Nodo* tmpPila5=pila5;
+    Nodo* tmpPila6=pila6;
+    Nodo* tmpPila7=pila7;
+    Nodo* tmpPila8=pila8;
+    Nodo* tmpPila9=pila9;
+    Nodo* tmpPila10=pila10;
+    Nodo* tmpPila11=pila11;
+    aux=medirTamanio(tmpPila5);
+    if(aux>max){
+        max=aux;
+    }
+    aux=medirTamanio(tmpPila6);
+    if(aux>max){
+        max=aux;
+    }
+    aux=medirTamanio(tmpPila7);
+    if(aux>max){
+        max=aux;
+    }
+    aux=medirTamanio(tmpPila8);
+    if(aux>max){
+        max=aux;
+    }
+    aux=medirTamanio(tmpPila9);
+    if(aux>max){
+        max=aux;
+    }
+    aux=medirTamanio(tmpPila10);
+    if(aux>max){
+        max=aux;
+    }
+    aux=medirTamanio(tmpPila11);
+    if(aux>max){
+        max=aux;
+    }
+    return max;
+ }
 
-bool Tablero::verificarSiLaCartaYaEstaAsignada(Carta carta){
-    cout<<"verificando numero de carta";
-    bool usada=false;
-    for(int i=0 ; i<52;i++){
-        if(carta.getAcci()==cartas[i].getAcci()){
-            if(cartas[i].getUsada()){
-                usada=true;
-            }
-            i=52;
+ void Tablero::eliminarUltimoDeCola(Nodo* &frente, Nodo* &final){
+    cout<<"se ha eliminado la carta: "<<final->carta.getAcci()<<endl;
+    if (frente == nullptr) {
+            std::cout << "La cola está vacía." << std::endl;
+            return;
         }
-    }
-    return usada;
-}
-void Tablero::inicializarCartasEnCola1(Cola *arrayCola1){
-    for(int i=0; i<24;i++){
-        int n;
-        do
-            
-            n = 1 + rand() % 53;
-            
-        while(verificarSiLaCartaYaEstaAsignada(cartas[n]));
-        arrayCola1->agregarNodo(arrayCola1, cartas[n]);
-    }
-}
-*/
+
+        if (frente == final) {
+            // Hay un solo elemento en la cola
+            delete frente;
+            frente = final = nullptr;
+            return;
+        }
+
+        Nodo* nodoActual = frente;
+        Nodo* nodoAnterior = nullptr;
+
+        // Avanzar hasta el penúltimo nodo
+        while (nodoActual->siguiente != nullptr) {
+            nodoAnterior = nodoActual;
+            nodoActual = nodoActual->siguiente;
+        }
+
+        // Eliminar el último nodo
+        delete nodoActual;
+        final = nodoAnterior;
+        if (final != nullptr) {
+            final->siguiente = nullptr;
+        } else {
+            // La cola está vacía después de la eliminación
+            frente = nullptr;
+        }
+    
+ }
