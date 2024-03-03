@@ -100,8 +100,8 @@ void EntornoDeJuego::Menu(){
         tablero.imprimirCabezal(primeroCola1,ultimoCola2, pila1, pila2,pila3,pila4,cartaMostrando);
         tablero.imprimirPie(pila5, pila6,pila7, pila8, pila9, pila10, pila11);
         cout<<"Ingrese una opcion:"<<endl;
-        cout<<"1.Sacar carta del MACHO."<<endl<<"2.Hacer movimiento del MACHO"<<endl<<"-1. Salir"<<endl;
-        cout<<"HACER MOVIMIENTO ENTRE SECCIONES!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"<<endl;
+        cout<<"1.Sacar carta del MACHO."<<endl<<"2.Hacer movimiento del MACHO"<<endl<<"3.Movimeinto entre Secciones"<<endl<<"-1. Salir"<<endl;
+        cout<<"HACER MOVIMIENTO DE PILAS INFERIORES A PILAS INFERIORES!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"<<endl;
         cin>>opcion;
         switch (opcion) {
             case 1:
@@ -135,6 +135,37 @@ void EntornoDeJuego::Menu(){
                             tablero.eliminarUltimoDeCola(primeroCola2, ultimoCola2);
                             cout<<"se ha eliminado el ultimo elemento del macho"<<endl;
                         }
+                    }
+                }
+                break;
+            case 3:
+                int seccionQuitar, seccionPoner;
+                cout<<"Ingrese el numero de seccion a quitar ";
+                cin>>seccionQuitar;
+                cout<<"Ingrese el numero de seccion a poner ";
+                cin>>seccionPoner;
+                if(seccionQuitar!=seccionPoner){
+                    if((seccionQuitar==5||seccionQuitar==6||seccionQuitar==7||seccionQuitar==8||seccionQuitar==9
+                        ||seccionQuitar==10||seccionQuitar==11)&&(seccionPoner==1||seccionPoner==2||seccionPoner==3
+                        ||seccionPoner==4)){
+                            //metodode pilas inferiores a pilas cabezales
+                        if(movimiento.MovimientoDePilaInferiorAPilasCabezales(pila1, pila2, pila3, pila4, pila5, pila6, pila7, pila8, pila9, pila10, pila11,  seccionPoner, seccionQuitar)){
+                            //metodo de eliminacion de primer elemento de la pila doblemente enlazada
+                            tablero.eliminarPrimeroPilaDoblementeEnlazada(movimiento.pilaInferior(pila5, pila6, pila7,pila8, pila9, pila10, pila11,  seccionQuitar));
+
+                        }
+                    }else if((seccionQuitar==1||seccionQuitar==2||seccionQuitar==3||seccionQuitar==4)&&(seccionPoner==5||seccionPoner==6
+                            ||seccionPoner==7||seccionPoner==8||seccionPoner==9||seccionPoner==10||seccionPoner==11)){
+                                //metodo de pilas cabezales a pilas inferiores
+                        if(movimiento.MovimientoDePilasCabezalesAPilasInferiores(pila1, pila2, pila3, pila4, pila5, pila6, pila7, pila8, pila9, pila10, pila11,  seccionQuitar,  seccionPoner)){
+                            tablero.popPilaSimple(movimiento.pilaCabezal(pila1, pila2, pila3, pila4,  seccionQuitar));
+                        }
+                    }else if((seccionQuitar==1||seccionQuitar==2||seccionQuitar==3||seccionQuitar==4)&&
+                            (seccionPoner==1||seccionPoner==2||seccionPoner==3||seccionPoner==4)){
+                        //cout si intenta hacer movimientos entre pilas cabezales
+                        cout<<"MOVIMIENTO NO VALIDO!!!!!!!!!!!"<<endl;
+                    }else{
+                        //metodo para hacer movimientos de pilas inferiores a pilas inferiores
                     }
                 }
                 break;

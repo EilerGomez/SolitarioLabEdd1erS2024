@@ -325,3 +325,28 @@ int Tablero::medirTamanio(Nodo* &pila){
         }
     
  }
+
+ void Tablero::eliminarPrimeroPilaDoblementeEnlazada(Nodo*& pila) {
+    if (pila != nullptr) {
+        Nodo* nodoAEliminar = pila;
+        pila = pila->siguiente;
+
+        if (pila != nullptr) {
+            pila->anterior = nullptr;
+            pila->carta.setMostrar(true);
+        }
+
+        delete nodoAEliminar;
+    } else {
+        std::cout << "La pila está vacía." << std::endl;
+    }
+}
+void Tablero::popPilaSimple(Nodo* &pila) {
+        if (pila != nullptr) {
+            Nodo* nodoAEliminar = pila;
+            pila = pila->siguiente;
+            delete nodoAEliminar;
+        } else {
+            cout << "La pila está vacía." << endl;
+    }
+}

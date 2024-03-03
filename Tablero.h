@@ -19,6 +19,9 @@ class Tablero{
         void llevarAlUltimo(Nodo* &pila);
         int medirTamanio(Nodo *&pila);
         int tamanioMasGrandeDeLista(Nodo* &pila5,Nodo* &pila6, Nodo* &pila7, Nodo* &pila8,Nodo* &pila9, Nodo * &pila10, Nodo* &pila11);
+        
+        void popPilaSimple(Nodo* &pila) ;
+        void eliminarPrimeroPilaDoblementeEnlazada(Nodo*& pila) ;
         void eliminarUltimoDeCola(Nodo* &primero, Nodo* &ultimo);
-};
+};  
 #endif

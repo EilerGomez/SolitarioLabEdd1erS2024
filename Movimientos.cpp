@@ -31,6 +31,7 @@ bool Movimientos::VerificarCorreccionMovimientoPilasCabezales(Nodo* &macho, Nodo
     bool iscorrect=false;
     if(OrdenPilasCabezales(macho, pilaCabezal)&&verificarTipoCartasPilaCabezal(macho, pilaCabezal)){
         agregarNodoAPila(pilaCabezal, macho->carta);//agregamos la carta a
+        cout<<"Correcto, se deberia eliminar la carta de la pila inferior: "<<macho->carta.getAcci()<<endl;
         iscorrect=true;
     }else{
         cout<<"MOVIMIENTO NO VALIDO!!!!!"<<endl;
@@ -267,4 +268,43 @@ bool Movimientos::OrdenPilasInferiores(Nodo* &macho, Nodo* &pilaInferior){
 
     return iscorrect;
 }
+
+bool Movimientos::MovimientoDePilaInferiorAPilasCabezales(Nodo* &pila1,Nodo* &pila2,Nodo* &pila3, Nodo* &pila4, Nodo* &pila5, Nodo* &pila6
+        , Nodo* &pila7, Nodo* &pila8, Nodo* &pila9, Nodo* &pila10, Nodo* &pila11, int numpilaCabezal, int numPilaInferior){
+            return VerificarCorreccionMovimientoPilasCabezales(pilaInferior(pila5, pila6, pila7, pila8, pila9, pila10, pila11, numPilaInferior),
+            pilaCabezal(pila1,pila2,pila3,pila4,numpilaCabezal));
+}
+
+
+Nodo* &Movimientos::pilaInferior(Nodo* &pila5, Nodo* &pila6, Nodo* &pila7, Nodo* &pila8, Nodo* &pila9, Nodo* &pila10, Nodo* &pila11, int numPilaInferior){
+    switch (numPilaInferior) {
+    case 5: return pila5;break;
+    case 6:return pila6;break;
+    case 7:return pila7;break;
+    case 8:return pila8;break;
+    case 9:return pila9;break;
+    case 10: return pila10;break;
+    case 11:return pila11;break;
+    default:throw std::runtime_error("Número de pila inferior no válido");break;
+    }
+}
+Nodo* &Movimientos::pilaCabezal(Nodo* &pila1, Nodo* &pila2, Nodo* &pila3, Nodo* &pila4, int numPilaCabezal){
+    switch (numPilaCabezal) {
+    case 1:return pila1;break;
+    case 2:return pila2;break;
+    case 3:return pila3;break;
+    case 4:return pila4;break;
+    default:
+        throw std::runtime_error("Número de pila de cabezal no válido");
+    break;
+    }
+}
+
+bool Movimientos::MovimientoDePilasCabezalesAPilasInferiores(Nodo* &pila1,Nodo* &pila2,Nodo* &pila3, Nodo* &pila4, Nodo* &pila5, Nodo* &pila6
+        , Nodo* &pila7, Nodo* &pila8, Nodo* &pila9, Nodo* &pila10, Nodo* &pila11, int numpilaCabezal, int numPilaInferior){
+            return VerificarCorreccionMovimientoPilasInferiores(pilaCabezal(pila1, pila2, pila3, pila4, numpilaCabezal),
+            pilaInferior(pila5, pila6, pila7, pila8, pila9, pila10, pila11,  numPilaInferior));
+}
+
+
 

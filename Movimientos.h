@@ -20,6 +20,19 @@ class Movimientos{
         bool verificarColorCartaPilasInferiores(Nodo* &macho, Nodo* &pilaInferior);
         bool OrdenPilasInferiores(Nodo* &macho, Nodo* &pilaInferior);
         void agregarNodoAPilaDobleEnlace(Nodo* &pila, Carta carta);
+
+        //metodos para pilas inferiores a pilas cabezales
+        bool MovimientoDePilaInferiorAPilasCabezales(Nodo* &pila1,Nodo* &pila2,Nodo* &pila3, Nodo* &pila4, Nodo* &pila5, Nodo* &pila6
+        , Nodo* &pila7, Nodo* &pila8, Nodo* &pila9, Nodo* &pila10, Nodo* &pila11, int numPilaCabezal, int numPilaInferior);
+
+        Nodo* &pilaInferior(Nodo* &pila5, Nodo* &pila6
+        , Nodo* &pila7, Nodo* &pila8, Nodo* &pila9, Nodo* &pila10, Nodo* &pila11, int numPilaInferior);
+
+        Nodo* &pilaCabezal(Nodo* &pila1, Nodo* &pila2, Nodo* &pila3, Nodo* &pila4, int numPilaCabezal);
+
+        //metodos para pilas cabezales a pilas inferiores
+        bool MovimientoDePilasCabezalesAPilasInferiores(Nodo* &pila1,Nodo* &pila2,Nodo* &pila3, Nodo* &pila4, Nodo* &pila5, Nodo* &pila6
+        , Nodo* &pila7, Nodo* &pila8, Nodo* &pila9, Nodo* &pila10, Nodo* &pila11, int numPilaCabezal, int numPilaInferior);
 };
 
 #endif
