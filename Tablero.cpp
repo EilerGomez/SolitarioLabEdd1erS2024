@@ -1,4 +1,5 @@
 #include "Tablero.h"
+#include "Carta.h"
 #include<iostream>
 #include <iterator>
 #include<cstdlib>
@@ -217,10 +218,13 @@ void Tablero::imprimirPie(Nodo* &pila5, Nodo* &pila6, Nodo* &pila7, Nodo* &pila8
     cout<<endl;
 }
 void Tablero::llevarAlUltimo(Nodo* &pila){
-    
-    while (pila->siguiente!=nullptr) {
+    //cout<<"llevando al ultimo";
+    if(pila!=nullptr){
+        while (pila->siguiente!=nullptr) {
         pila=pila->siguiente;
+        }
     }
+    
 }
 void Tablero::imprimirNodoPila(Nodo* &pila){
     
@@ -241,6 +245,7 @@ void Tablero::imprimirNodoPila(Nodo* &pila){
     
 }
 int Tablero::medirTamanio(Nodo* &pila){
+    //cout<<"midiendo tamanio..."<<endl;
     Nodo* tmp=pila;
     int i=1;
     while(tmp!=nullptr){
@@ -293,7 +298,7 @@ int Tablero::medirTamanio(Nodo* &pila){
 
  void Tablero::eliminarUltimoDeCola(Nodo* &frente, Nodo* &final){
     cout<<"se ha eliminado la carta: "<<final->carta.getAcci()<<endl;
-    if (frente == nullptr) {
+        if (frente == nullptr) {
             std::cout << "La cola está vacía." << std::endl;
             return;
         }
@@ -327,14 +332,22 @@ int Tablero::medirTamanio(Nodo* &pila){
  }
 
  void Tablero::eliminarPrimeroPilaDoblementeEnlazada(Nodo*& pila) {
+    cout<<"haciendo pop a lista doblemente enlazada..."<<endl;
+
     if (pila != nullptr) {
+        cout<<"Eliminando el nodo de la lista doblemente enlazada...."<<endl;
         Nodo* nodoAEliminar = pila;
         pila = pila->siguiente;
 
-        if (pila != nullptr) {
+        if (pila != nullptr) {    
+            cout<<"Eliminando el nodo de la lista doblemente enlazada....."<<endl;        
             pila->anterior = nullptr;
             pila->carta.setMostrar(true);
+        }else{
+            pila=nullptr;
+            cout<<"La pila quedo nula"<<endl;
         }
+            
 
         delete nodoAEliminar;
     } else {
@@ -349,4 +362,56 @@ void Tablero::popPilaSimple(Nodo* &pila) {
         } else {
             cout << "La pila está vacía." << endl;
     }
+}
+
+//metodos para mover de pila inf a pila inf
+bool Tablero::existeLaCarta(Nodo* &pila, string carta){
+    Nodo *tmp = pila;
+    bool existe=false;
+    while(tmp!=nullptr){
+        if(tmp->carta.getAcci()==carta){
+            existe =true;
+        }
+        tmp=tmp->siguiente;
+    }
+
+    return existe;
+}
+
+void Tablero::quitarCartas(Nodo* &pila, string carta){
+    if(existeLaCarta(pila, carta)){
+        cout<<"Si existe la carta.."<<endl;
+        while (pila->carta.getAcci()!=carta) {
+            cartasPasando.push_back(pila->carta);
+            //metodo para eliminar el nodo actual de
+            eliminarPrimeroPilaDoblementeEnlazada(pila);
+            //pila=pila->siguiente;
+        }
+            cartasPasando.push_back(pila->carta);
+            //metodo para eliminar el nodo actual de
+            eliminarPrimeroPilaDoblementeEnlazada(pila);
+            //pila=pila->siguiente;
+            if(pila!=nullptr){
+                pila->carta.setMostrar(true);
+            }else{
+                pila=nullptr;
+            }
+    }
+}
+
+void Tablero::imprimirCartasPasando(){
+    for(int i=0;i<cartasPasando.size();i++){
+        cartasPasando[i].mostrarInfo();
+    }
+}
+
+Carta Tablero::traerCarta(string acci){
+    Carta carta = *new Carta("null","null","null","null",false);
+    for (int i=0; i<52; i++) {
+        if(cartas[i].getAcci()==acci){            
+            carta=cartas[i];
+            i=52;
+        }
+    }
+    return carta;
 }

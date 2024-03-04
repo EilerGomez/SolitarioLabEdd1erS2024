@@ -306,5 +306,90 @@ bool Movimientos::MovimientoDePilasCabezalesAPilasInferiores(Nodo* &pila1,Nodo* 
             pilaInferior(pila5, pila6, pila7, pila8, pila9, pila10, pila11,  numPilaInferior));
 }
 
+bool Movimientos::OrdenPilasInferioresPorCarta(Nodo* &pilaInferior, Carta carta){
+    bool iscorrect=false;
+    if(carta.getNombre()=="Rey"){
+        if(pilaInferior==nullptr){
+            iscorrect=true;
+        }
+    }else if(pilaInferior!=nullptr){
+        if(carta.getNombre()=="As"){
+            if(pilaInferior->carta.getNombre()=="Dos"){
+                iscorrect=true;
+            }
+        }else if(carta.getNombre()=="Dos"){
+            if(pilaInferior->carta.getNombre()=="Tres"){
+                iscorrect=true;
+            }
+        }else if(carta.getNombre()=="Tres"){
+            if(pilaInferior->carta.getNombre()=="Cuatro"){
+                iscorrect=true;
+            }
+        }else if(carta.getNombre()=="Cuatro"){
+            if(pilaInferior->carta.getNombre()=="Cinco"){
+                iscorrect=true;
+            }
+        }else if(carta.getNombre()=="Cinco"){
+            if(pilaInferior->carta.getNombre()=="Seis"){
+                iscorrect=true;
+            }
+        }else if(carta.getNombre()=="Seis"){
+            if(pilaInferior->carta.getNombre()=="Siete"){
+                iscorrect=true;
+            }
+        }else if(carta.getNombre()=="Siete"){
+            if(pilaInferior->carta.getNombre()=="Ocho"){
+                iscorrect=true;
+            }
+        }else if(carta.getNombre()=="Ocho"){
+            if(pilaInferior->carta.getNombre()=="Nueve"){
+                iscorrect=true;
+            }
+        }else if(carta.getNombre()=="Nueve"){
+            if(pilaInferior->carta.getNombre()=="Diez"){
+                iscorrect=true;
+            }
+        }else if(carta.getNombre()=="Diez"){
+            if(pilaInferior->carta.getNombre()=="Jota"){
+                iscorrect=true;
+            }
+        }else if(carta.getNombre()=="Jota"){
+            if(pilaInferior->carta.getNombre()=="Cuina"){
+                iscorrect=true;
+            }
+        }else if(carta.getNombre()=="Cuina"){
+            if(pilaInferior->carta.getNombre()=="Rey"){
+                iscorrect=true;
+            }
+        }
+    }
+
+
+    return iscorrect;
+}
+
+
+bool Movimientos::VerificarColorcartasInferioresPorCarta(Nodo* &pilaInferior, Carta carta){
+     bool iscorrect=false;
+    if(carta.getNombre()=="Rey"){
+        if(pilaInferior==nullptr){
+            iscorrect=true;
+        }
+    }else{
+        if(pilaInferior!=nullptr){
+            if(carta.getColor()=="Rojo"){
+                if(pilaInferior->carta.getColor()=="Negro"){
+                    iscorrect=true;
+                }
+            }else if(carta.getColor()=="Negro"){
+                if(pilaInferior->carta.getColor()=="Rojo"){
+                    iscorrect=true;
+                }
+            }
+        }
+    }
+    return iscorrect;
+}
+
 
 

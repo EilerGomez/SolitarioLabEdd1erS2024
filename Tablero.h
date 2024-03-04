@@ -2,10 +2,12 @@
 #define  TABLERO_H
 
 #include "Nodo.h"
+#include <vector>
 
 class Tablero{
     public:
         Carta cartas[52];
+        vector<Carta> cartasPasando;
         Tablero();
         void ejecutar();
         void mostrarCartas(Carta cartasArray[]);
@@ -23,5 +25,13 @@ class Tablero{
         void popPilaSimple(Nodo* &pila) ;
         void eliminarPrimeroPilaDoblementeEnlazada(Nodo*& pila) ;
         void eliminarUltimoDeCola(Nodo* &primero, Nodo* &ultimo);
+
+
+        //metodos para movimiento de pilas inferiores a pilas inferiores
+        void quitarCartas(Nodo* &pila, string acci);
+        bool existeLaCarta(Nodo* &pila, string acci);
+        void ponerCartas(Nodo* &pila);
+        Carta traerCarta(string acci);
+        void imprimirCartasPasando();
 };  
 #endif

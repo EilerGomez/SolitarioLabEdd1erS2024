@@ -79,6 +79,8 @@ void EntornoDeJuego::agregarNodoAPilaDobleEnlace(Nodo* &pila, Carta carta){
         
         if (pila == nullptr) {
             pila = nuevoNodo;
+            pila->anterior=nullptr;
+            pila->siguiente=nullptr;
         } else {
             nuevoNodo->siguiente = pila;
             pila->anterior = nuevoNodo;
@@ -105,8 +107,9 @@ void EntornoDeJuego::Menu(){
         cin>>opcion;
         switch (opcion) {
             case 1:
-                //metodo para pasar la primera carta de la cola 1 a la cola2
-                if(primeroCola1==nullptr){
+                if(primeroCola1==nullptr&&primeroCola2==nullptr){
+                    cout<<"NO SE PUEDE HACER ESTE MOVIMIENTO"<<endl;
+                }else if(primeroCola1==nullptr){
                         //cout<<"la pila 1 esta vacia"<<endl;
                         primeroCola1=primeroCola2;
                         ultimoCola1=ultimoCola2;
@@ -166,6 +169,21 @@ void EntornoDeJuego::Menu(){
                         cout<<"MOVIMIENTO NO VALIDO!!!!!!!!!!!"<<endl;
                     }else{
                         //metodo para hacer movimientos de pilas inferiores a pilas inferiores
+                        string carta;
+                        cout<<"ingrese el acci de la carta desde donde quiere hacer el movimiento: ";
+                        cin>>carta;
+                        //tablero.imprimirCartasPasando();
+                        if(movimiento.OrdenPilasInferioresPorCarta(movimiento.pilaInferior(pila5, pila6, pila7, pila8, pila9, pila10, pila11,  seccionPoner), tablero.traerCarta(carta))
+                        &&movimiento.VerificarColorcartasInferioresPorCarta(movimiento.pilaInferior(pila5, pila6, pila7, pila8, pila9, pila10, pila11,  seccionPoner), tablero.traerCarta(carta))){
+                            tablero.quitarCartas(movimiento.pilaInferior(pila5, pila6, pila7, pila8, pila9, pila10, pila11,  seccionQuitar),  carta);
+                            cout<<"cartas que se han quitado: "<<endl;
+                            for (int i=tablero.cartasPasando.size()-1;i>=0;i--) {
+                                tablero.cartasPasando[i].mostrarInfo();
+                                agregarNodoAPilaDobleEnlace(movimiento.pilaInferior(pila5, pila6, pila7, pila8, pila9, pila10, pila11,  seccionPoner), tablero.cartasPasando[i]);
+                            }
+                            tablero.cartasPasando.clear();
+                        }
+
                     }
                 }
                 break;

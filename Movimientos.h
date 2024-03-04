@@ -1,5 +1,6 @@
 #ifndef MOVIMIENTO_H
 #define  MOVIMIENTO_H
+#include "Carta.h"
 #include "Nodo.h"
 class Movimientos{
     public:
@@ -33,6 +34,9 @@ class Movimientos{
         //metodos para pilas cabezales a pilas inferiores
         bool MovimientoDePilasCabezalesAPilasInferiores(Nodo* &pila1,Nodo* &pila2,Nodo* &pila3, Nodo* &pila4, Nodo* &pila5, Nodo* &pila6
         , Nodo* &pila7, Nodo* &pila8, Nodo* &pila9, Nodo* &pila10, Nodo* &pila11, int numPilaCabezal, int numPilaInferior);
+        bool OrdenPilasInferioresPorCarta(Nodo* &pilaAPoner, Carta carta);
+
+        bool VerificarColorcartasInferioresPorCarta(Nodo* &pila, Carta carta);
 };
 
 #endif
