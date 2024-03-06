@@ -17,6 +17,13 @@ EntornoDeJuego::EntornoDeJuego(){
    pila2=nullptr;
    pila3=nullptr;
    pila4=nullptr;
+   pila5=nullptr;
+   pila6=nullptr;
+   pila7=nullptr;
+   pila8=nullptr;
+   pila9=nullptr;
+   pila10=nullptr;
+   pila11=nullptr;
    generarCola1ConCartas(24);
    generarPilasConCartas(pila5,24,25);
    generarPilasConCartas(pila6,25,27);
@@ -99,11 +106,24 @@ void EntornoDeJuego::Menu(){
 
     int opcion=0;
     while(opcion !=-1){
-        tablero.imprimirCabezal(primeroCola1,ultimoCola2, pila1, pila2,pila3,pila4,cartaMostrando);
-        tablero.imprimirPie(pila5, pila6,pila7, pila8, pila9, pila10, pila11);
+        if(primeroCola1==nullptr&&primeroCola2==nullptr&&pila5==nullptr&&pila6==nullptr
+            &&pila7==nullptr&&pila8==nullptr&&pila9==nullptr&&pila10==nullptr&&pila11==nullptr){
+            cout<<"FELICIDADES HAS GANADO!!!!!!!!!!!"<<endl;
+            tablero.imprimirCabezal(primeroCola1,ultimoCola2, pila1, pila2,pila3,pila4,cartaMostrando);
+            tablero.imprimirPie(pila5, pila6,pila7, pila8, pila9, pila10, pila11);
+        
+            opcion=-1;
+        }else{
+            try {
+                tablero.imprimirCabezal(primeroCola1,ultimoCola2, pila1, pila2,pila3,pila4,cartaMostrando);
+                tablero.imprimirPie(pila5, pila6,pila7, pila8, pila9, pila10, pila11);
+            } catch (const std::exception& e) {
+                cout<<"surgio una exepcion"<<endl;
+                std::cerr << "Se produjo una excepción: " << e.what() << std::endl;
+            } 
         cout<<"Ingrese una opcion:"<<endl;
-        cout<<"1.Sacar carta del MACHO."<<endl<<"2.Hacer movimiento del MACHO"<<endl<<"3.Movimeinto entre Secciones"<<endl<<"-1. Salir"<<endl;
-        cout<<"HACER MOVIMIENTO DE PILAS INFERIORES A PILAS INFERIORES!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"<<endl;
+        cout<<"-1. Salir"<<endl<<"1.Sacar carta del MACHO."<<endl<<"2.Hacer movimiento del MACHO"<<endl<<"3.Movimeinto entre Secciones"<<endl;
+        //cout<<"HACER MOVIMIENTO DE PILAS INFERIORES A PILAS INFERIORES!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"<<endl;
         cin>>opcion;
         switch (opcion) {
             case 1:
@@ -118,7 +138,7 @@ void EntornoDeJuego::Menu(){
                 }else{
                     agregarNodoCola(primeroCola2, ultimoCola2,tablero.pop(primeroCola1));
 
-                    tablero.imprimirNodo(primeroCola2);
+                    //tablero.imprimirNodo(primeroCola2);
                 }
                 break;
             case 2:
@@ -129,14 +149,14 @@ void EntornoDeJuego::Menu(){
                     if(seccion==1||seccion==2||seccion==3||seccion==4){//movimiento del macho a cabezales
                         if(movimiento.movimientoDeMachoAPilasCabezales(ultimoCola2, pila1, pila2, pila3, pila4, seccion)){
                             tablero.eliminarUltimoDeCola(primeroCola2, ultimoCola2);
-                            cout<<"se ha eliminado el ultimo elemento del macho"<<endl;
+                            //cout<<"se ha eliminado el ultimo elemento del macho"<<endl;
                         }
                         
                     }else if(seccion==5||seccion==6||seccion==7||seccion==8||seccion==9||seccion==10||seccion==11){
                         //metodo de macho a pilas inferiores
                         if(movimiento.movimientoDeMachoAPilasInferiores(ultimoCola2, pila5, pila6, pila7, pila8, pila9, pila10, pila11, seccion)){
                             tablero.eliminarUltimoDeCola(primeroCola2, ultimoCola2);
-                            cout<<"se ha eliminado el ultimo elemento del macho"<<endl;
+                            //cout<<"se ha eliminado el ultimo elemento del macho"<<endl;
                         }
                     }
                 }
@@ -147,7 +167,7 @@ void EntornoDeJuego::Menu(){
                 cin>>seccionQuitar;
                 cout<<"Ingrese el numero de seccion a poner ";
                 cin>>seccionPoner;
-                if(seccionQuitar!=seccionPoner){
+                if(seccionQuitar!=seccionPoner && seccionPoner<=11 &&seccionQuitar<=11){
                     if((seccionQuitar==5||seccionQuitar==6||seccionQuitar==7||seccionQuitar==8||seccionQuitar==9
                         ||seccionQuitar==10||seccionQuitar==11)&&(seccionPoner==1||seccionPoner==2||seccionPoner==3
                         ||seccionPoner==4)){
@@ -174,11 +194,12 @@ void EntornoDeJuego::Menu(){
                         cin>>carta;
                         //tablero.imprimirCartasPasando();
                         if(movimiento.OrdenPilasInferioresPorCarta(movimiento.pilaInferior(pila5, pila6, pila7, pila8, pila9, pila10, pila11,  seccionPoner), tablero.traerCarta(carta))
-                        &&movimiento.VerificarColorcartasInferioresPorCarta(movimiento.pilaInferior(pila5, pila6, pila7, pila8, pila9, pila10, pila11,  seccionPoner), tablero.traerCarta(carta))){
+                        &&movimiento.VerificarColorcartasInferioresPorCarta(movimiento.pilaInferior(pila5, pila6, pila7, pila8, pila9, pila10, pila11,  seccionPoner), tablero.traerCarta(carta))
+                        &&tablero.verificarSiSePuedeMostrar(movimiento.pilaInferior(pila5, pila6, pila7, pila8, pila9, pila10, pila11,  seccionQuitar), carta)){
                             tablero.quitarCartas(movimiento.pilaInferior(pila5, pila6, pila7, pila8, pila9, pila10, pila11,  seccionQuitar),  carta);
-                            cout<<"cartas que se han quitado: "<<endl;
+                            //cout<<"cartas que se han quitado: "<<endl;
                             for (int i=tablero.cartasPasando.size()-1;i>=0;i--) {
-                                tablero.cartasPasando[i].mostrarInfo();
+                                //tablero.cartasPasando[i].mostrarInfo();
                                 agregarNodoAPilaDobleEnlace(movimiento.pilaInferior(pila5, pila6, pila7, pila8, pila9, pila10, pila11,  seccionPoner), tablero.cartasPasando[i]);
                             }
                             tablero.cartasPasando.clear();
@@ -190,5 +211,7 @@ void EntornoDeJuego::Menu(){
             default:
                 break;
         }
+        }
     }
+
 }

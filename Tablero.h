@@ -33,5 +33,6 @@ class Tablero{
         void ponerCartas(Nodo* &pila);
         Carta traerCarta(string acci);
         void imprimirCartasPasando();
+        bool verificarSiSePuedeMostrar(Nodo* &pila, string carta);
 };  
 #endif

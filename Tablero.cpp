@@ -197,7 +197,7 @@ void Tablero::imprimirPie(Nodo* &pila5, Nodo* &pila6, Nodo* &pila7, Nodo* &pila8
         }
     }
     cout<<endl;
-    for(int i=0;i<tamanioMasGrandeDeLista(pila5, pila6, pila7, pila8, pila9, pila10, pila11);i++){
+    for(int i=1;i<tamanioMasGrandeDeLista(pila5, pila6, pila7, pila8, pila9, pila10, pila11);i++){
         imprimirNodoPila((pila5tmp));
         imprimirNodoPila((pila6tmp));
         imprimirNodoPila((pila7tmp));
@@ -297,9 +297,9 @@ int Tablero::medirTamanio(Nodo* &pila){
  }
 
  void Tablero::eliminarUltimoDeCola(Nodo* &frente, Nodo* &final){
-    cout<<"se ha eliminado la carta: "<<final->carta.getAcci()<<endl;
+    //cout<<"se ha eliminado la carta: "<<final->carta.getAcci()<<endl;
         if (frente == nullptr) {
-            std::cout << "La cola está vacía." << std::endl;
+            //std::cout << "La cola está vacía." << std::endl;
             return;
         }
 
@@ -332,26 +332,26 @@ int Tablero::medirTamanio(Nodo* &pila){
  }
 
  void Tablero::eliminarPrimeroPilaDoblementeEnlazada(Nodo*& pila) {
-    cout<<"haciendo pop a lista doblemente enlazada..."<<endl;
+    //cout<<"haciendo pop a lista doblemente enlazada..."<<endl;
 
     if (pila != nullptr) {
-        cout<<"Eliminando el nodo de la lista doblemente enlazada...."<<endl;
+        //cout<<"Eliminando el nodo de la lista doblemente enlazada...."<<endl;
         Nodo* nodoAEliminar = pila;
         pila = pila->siguiente;
 
         if (pila != nullptr) {    
-            cout<<"Eliminando el nodo de la lista doblemente enlazada....."<<endl;        
+            //cout<<"Eliminando el nodo de la lista doblemente enlazada....."<<endl;        
             pila->anterior = nullptr;
             pila->carta.setMostrar(true);
         }else{
             pila=nullptr;
-            cout<<"La pila quedo nula"<<endl;
+            //cout<<"La pila quedo nula"<<endl;
         }
             
 
         delete nodoAEliminar;
     } else {
-        std::cout << "La pila está vacía." << std::endl;
+        //std::cout << "La pila está vacía." << std::endl;
     }
 }
 void Tablero::popPilaSimple(Nodo* &pila) {
@@ -380,7 +380,7 @@ bool Tablero::existeLaCarta(Nodo* &pila, string carta){
 
 void Tablero::quitarCartas(Nodo* &pila, string carta){
     if(existeLaCarta(pila, carta)){
-        cout<<"Si existe la carta.."<<endl;
+        //cout<<"Si existe la carta.."<<endl;
         while (pila->carta.getAcci()!=carta) {
             cartasPasando.push_back(pila->carta);
             //metodo para eliminar el nodo actual de
@@ -414,4 +414,18 @@ Carta Tablero::traerCarta(string acci){
         }
     }
     return carta;
+}
+
+bool Tablero::verificarSiSePuedeMostrar(Nodo* &pila, string carta){
+    Nodo* tmp=pila;
+    bool existe=false;
+    while (tmp!=nullptr) {
+        if(tmp->carta.getAcci()==carta){
+            existe=tmp->carta.getMostrar();
+            
+        }
+        tmp=tmp->siguiente;
+    }
+
+    return existe;
 }

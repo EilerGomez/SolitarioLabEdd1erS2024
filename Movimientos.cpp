@@ -31,7 +31,7 @@ bool Movimientos::VerificarCorreccionMovimientoPilasCabezales(Nodo* &macho, Nodo
     bool iscorrect=false;
     if(OrdenPilasCabezales(macho, pilaCabezal)&&verificarTipoCartasPilaCabezal(macho, pilaCabezal)){
         agregarNodoAPila(pilaCabezal, macho->carta);//agregamos la carta a
-        cout<<"Correcto, se deberia eliminar la carta de la pila inferior: "<<macho->carta.getAcci()<<endl;
+        //cout<<"Correcto, se deberia eliminar la carta de la pila inferior: "<<macho->carta.getAcci()<<endl;
         iscorrect=true;
     }else{
         cout<<"MOVIMIENTO NO VALIDO!!!!!"<<endl;
@@ -56,7 +56,7 @@ Carta Movimientos:: popMacho(Nodo* &macho) {//pop a una COLA
         if (macho != nullptr) {
             Nodo* temp = macho;
             macho = macho->siguiente;
-            cout<<"eliminando carta del macho: "<<temp->carta.getAcci()<<endl;
+            //cout<<"eliminando carta del macho: "<<temp->carta.getAcci()<<endl;
             delete temp;
         } else {
             std::cout << "La cola está vacía." << std::endl;
@@ -76,7 +76,7 @@ bool Movimientos::OrdenPilasCabezales(Nodo* &macho, Nodo* &pilaCabezal){
     bool correcto=false;
     cout<<macho->carta.getNombre()<<endl;
     if(macho->carta.getNombre()=="As"){
-        cout<<"la carta es un ass"<<endl;
+        //cout<<"la carta es un ass"<<endl;
         if(pilaCabezal==nullptr){
             correcto=true;
         }

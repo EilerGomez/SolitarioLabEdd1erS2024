@@ -4,6 +4,7 @@
 #include<iostream>
 #include<cstdlib>
 #include<ctime>
+#include <stdexcept>
 
 using namespace std;
 
@@ -14,7 +15,14 @@ int main(){
     cout<<"Presione cualquier tecla para salir."<<endl;
     cin>>entrada;
     if(entrada==1){
-        EntornoDeJuego ej = *new EntornoDeJuego();
+        EntornoDeJuego ej;
+        try {
+            ej = *new EntornoDeJuego();
+        } catch (const std::exception& e) {
+            cout<<"surgio una exepcion"<<endl;
+            ej.tablero.cartasPasando.clear();
+        } 
+        
     }else{
         system("pause");
     }
