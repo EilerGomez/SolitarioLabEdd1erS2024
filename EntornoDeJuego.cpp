@@ -1,4 +1,5 @@
 #include "EntornoDeJuego.h"
+#include "Carta.h"
 #include <cstdlib>
 #include<iostream>
 #include <list>
@@ -50,13 +51,94 @@ EntornoDeJuego::EntornoDeJuego(){
    //tablero.imprimirCabezal(primeroCola1,primeroCola2, pila1, pila2,pila3,pila4);
    //tablero.imprimirNodo(primeroCola1);
     //tablero.imprimirNodo(primeroCola1);
+    hacerNullLasvariablesPasoSiguiente();
+    hacerNullLasvariablesPasoAnterior();
+    llenarVariablesAnterior();
 
    Menu();
    
 }
+void EntornoDeJuego::hacerNullLasvariablesPasoSiguiente(){
+    primeroCola1Sig=nullptr;ultimoCola1Sig=nullptr;
+    primerocola2Sig=nullptr;ultimoCola2Sig=nullptr;
+    pila1Sig=pila2Sig=pila3Sig=pila4Sig=pila5Sig=pila6Sig=pila7Sig=pila8Sig=pila9Sig=pila10Sig=pila11Sig=nullptr;
+}
+
+void EntornoDeJuego::llenarVariablesSiguientes(){
+    hacerNullLasvariablesPasoSiguiente();
+    //pasarcartasAPasoAnterior FUNCIONA COMO PARA ANTERIOR COMO PARA SIGUIENTE
+    primeroCola1Sig=nullptr;ultimoCola1Sig=nullptr;primerocola2Sig=nullptr;ultimoCola2Sig=nullptr;
+    pasarcartasAPasoAnterior(primeroCola1, primeroCola1Sig, ultimoCola1Sig);
+    pasarcartasAPasoAnterior(primeroCola2, primerocola2Sig, ultimoCola2Sig);
+    pila1Sig=pila1;pila2Sig=pila2;pila3Sig=pila3;pila4Sig=pila4;
+    pasarCartasPilasPasoAnterior(pila5,pila5Sig);pasarCartasPilasPasoAnterior(pila6,pila6Sig);
+    pasarCartasPilasPasoAnterior(pila7,pila7Sig);pasarCartasPilasPasoAnterior(pila8,pila8Sig);
+    pasarCartasPilasPasoAnterior(pila9,pila9Sig);pasarCartasPilasPasoAnterior(pila10,pila10Sig);
+    pasarCartasPilasPasoAnterior(pila11,pila11Sig);
+    tablero.imprimirNodo(primerocola2Sig);
+}
+
+void EntornoDeJuego::llenarVariablesActualesConSiguientes(){
+    pila5=pila6=pila7=pila8=pila9=pila10=pila11=nullptr;
+    primeroCola1=primeroCola1Sig;primeroCola2=primerocola2Sig;
+    ultimoCola1=ultimoCola1Sig;ultimoCola2=ultimoCola2Sig;
+    pila1=pila1Sig;pila2=pila2Sig;pila3=pila3Sig;pila4=pila4Sig;
+    pasarCartasPilasPasoAnterior(pila5Sig, pila5); pasarCartasPilasPasoAnterior(pila6Sig, pila6);
+    pasarCartasPilasPasoAnterior(pila7Sig, pila7); pasarCartasPilasPasoAnterior(pila8Sig, pila8);
+    pasarCartasPilasPasoAnterior(pila9Sig, pila9); pasarCartasPilasPasoAnterior(pila10Sig, pila10);
+    pasarCartasPilasPasoAnterior(pila11Sig, pila11);
+}
+void EntornoDeJuego::hacerNullLasvariablesPasoAnterior(){
+    primeroCola1An=nullptr;
+    ultimoCola1An=nullptr;
+    primerocola2An=nullptr;
+    ultimoCola2An = nullptr;
+    pila1An=pila2An=pila3An=pila4An=pila5An=pila6An=pila7An=pila8An=pila9An=pila10An=pila11An=nullptr;
+}
+
+void EntornoDeJuego::llenarVariablesAnterior(){
+    hacerNullLasvariablesPasoAnterior();
+    primeroCola1An=nullptr;ultimoCola1An=nullptr;primerocola2An=nullptr;ultimoCola2An=nullptr;
+    pasarcartasAPasoAnterior(primeroCola1, primeroCola1An, ultimoCola1An);
+    pasarcartasAPasoAnterior(primeroCola2, primerocola2An, ultimoCola2An);
+    pila1An=pila1;pila2An=pila2;pila3An=pila3;pila4An=pila4;
+    pasarCartasPilasPasoAnterior(pila5,pila5An);pasarCartasPilasPasoAnterior(pila6,pila6An);
+    pasarCartasPilasPasoAnterior(pila7,pila7An);pasarCartasPilasPasoAnterior(pila8,pila8An);
+    pasarCartasPilasPasoAnterior(pila9,pila9An);pasarCartasPilasPasoAnterior(pila10,pila10An);
+    pasarCartasPilasPasoAnterior(pila11,pila11An);
+
+}
+void EntornoDeJuego::llenarVariablesActualesConAnteriores(){
+    pila5=pila6=pila7=pila8=pila9=pila10=pila11=nullptr;
+    primeroCola1=primeroCola1An;primeroCola2=primerocola2An;
+    ultimoCola1=ultimoCola1An;ultimoCola2=ultimoCola2An;
+    pila1=pila1An;pila2=pila2An;pila3=pila3An;pila4=pila4An;
+    pasarCartasPilasPasoAnterior(pila5An, pila5); pasarCartasPilasPasoAnterior(pila6An, pila6);
+    pasarCartasPilasPasoAnterior(pila7An, pila7); pasarCartasPilasPasoAnterior(pila8An, pila8);
+    pasarCartasPilasPasoAnterior(pila9An, pila9); pasarCartasPilasPasoAnterior(pila10An, pila10);
+    pasarCartasPilasPasoAnterior(pila11An, pila11);
+
+    //tablero.imprimirNodo(primeroCola1An);
+}
 
 void EntornoDeJuego::inicializarPrimeraCartaVisible(Nodo* &PilaVar){
     PilaVar->carta.setMostrar(true);
+}
+
+void EntornoDeJuego::pasarCartasPilasPasoAnterior(Nodo* &pila, Nodo* &pilaAnt){
+    Nodo* tmp=pila;
+    while(tmp!=nullptr){
+        agregarNodoAPilaDobleEnlace(pilaAnt, tmp->carta);
+        tmp=tmp->siguiente;
+    }
+}
+
+void EntornoDeJuego::pasarcartasAPasoAnterior(Nodo* &primeroDeCola, Nodo* &primeroAnt, Nodo* &ultimoAnt){
+    Nodo* tmp=primeroDeCola;
+    while (tmp!=nullptr) {
+        agregarNodoCola(primeroAnt,ultimoAnt,tmp->carta);
+        tmp=tmp->siguiente;
+    }
 }
 
 void EntornoDeJuego::agregarNodoCola(Nodo* &primero, Nodo* &ultimo, Carta carta){
@@ -113,6 +195,7 @@ void EntornoDeJuego::Menu(){
             tablero.imprimirPie(pila5, pila6,pila7, pila8, pila9, pila10, pila11);
         
             opcion=-1;
+            return;
         }else{
             try {
                 tablero.imprimirCabezal(primeroCola1,ultimoCola2, pila1, pila2,pila3,pila4,cartaMostrando);
@@ -122,9 +205,15 @@ void EntornoDeJuego::Menu(){
                 std::cerr << "Se produjo una excepción: " << e.what() << std::endl;
             } 
         cout<<"Ingrese una opcion:"<<endl;
-        cout<<"-1. Salir"<<endl<<"1.Sacar carta del MACHO."<<endl<<"2.Hacer movimiento del MACHO"<<endl<<"3.Movimeinto entre Secciones"<<endl;
-        //cout<<"HACER MOVIMIENTO DE PILAS INFERIORES A PILAS INFERIORES!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"<<endl;
+        cout<<"-1. Salir"<<endl<<"4. Paso anterior      5.Paso siguiente "<<endl<<"1.Sacar carta del MACHO."<<endl<<"2.Hacer movimiento del MACHO"<<endl<<"3.Movimeinto entre Secciones"<<endl;
+        cout<<"!!!!!!!!!!!!!!!!!!!!!FALTA HACER EL PASO SIGUIENTE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"<<endl;
         cin>>opcion;
+        if(opcion==1||opcion==2||opcion==3){
+            llenarVariablesAnterior();
+            //hacerNullLasvariablesPasoSiguiente();
+            haySiguiente=false;
+        }
+        //llenarVariablesAnterior();
         switch (opcion) {
             case 1:
                 if(primeroCola1==nullptr&&primeroCola2==nullptr){
@@ -207,6 +296,17 @@ void EntornoDeJuego::Menu(){
 
                     }
                 }
+                break;
+            case 4://llena las variables para un paso siguiente
+                llenarVariablesSiguientes();
+                haySiguiente=true;
+                llenarVariablesActualesConAnteriores();
+                break;
+            case 5:
+            if(haySiguiente){                
+                llenarVariablesAnterior();
+                llenarVariablesActualesConSiguientes();
+            }              
                 break;
             default:
                 break;
