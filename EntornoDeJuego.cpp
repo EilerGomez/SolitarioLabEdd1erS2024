@@ -206,7 +206,6 @@ void EntornoDeJuego::Menu(){
             } 
         cout<<"Ingrese una opcion:"<<endl;
         cout<<"-1. Salir"<<endl<<"4. Paso anterior      5.Paso siguiente "<<endl<<"1.Sacar carta del MACHO."<<endl<<"2.Hacer movimiento del MACHO"<<endl<<"3.Movimeinto entre Secciones"<<endl;
-        cout<<"!!!!!!!!!!!!!!!!!!!!!FALTA HACER EL PASO SIGUIENTE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"<<endl;
         cin>>opcion;
         if(opcion==1||opcion==2||opcion==3){
             llenarVariablesAnterior();
