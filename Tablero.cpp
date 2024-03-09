@@ -429,3 +429,28 @@ bool Tablero::verificarSiSePuedeMostrar(Nodo* &pila, string carta){
 
     return existe;
 }
+
+bool Tablero::devolverInfoCarta(int numCarta, Nodo* &pila){
+    
+    bool info =false;
+    Nodo* tmp=pila;
+    //imprimirNodoPila(tmp);
+    llevarAlUltimo(tmp);
+    for(int i=0;i<numCarta;i++){
+        //cout<<medirTamanio(pila)<<endl;
+        if(numCarta<=medirTamanio(pila)-1){
+            if(pila==nullptr){
+            i=numCarta;
+            }else if(i==numCarta-1){
+            i=numCarta;
+            info=true;
+            cout<<"------>";tmp->carta.mostrarInfo();
+            }else{
+            tmp=tmp->anterior;
+            }
+        }
+        
+    }
+
+    return info;
+}

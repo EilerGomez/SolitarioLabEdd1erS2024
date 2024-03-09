@@ -34,5 +34,8 @@ class Tablero{
         Carta traerCarta(string acci);
         void imprimirCartasPasando();
         bool verificarSiSePuedeMostrar(Nodo* &pila, string carta);
+
+        //metodos para mostrar una carta de las 7 pilas
+        bool devolverInfoCarta(int numCarta, Nodo* &pila);
 };  
 #endif

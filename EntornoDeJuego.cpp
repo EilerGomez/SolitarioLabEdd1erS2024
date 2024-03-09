@@ -206,6 +206,7 @@ void EntornoDeJuego::Menu(){
             } 
         cout<<"Ingrese una opcion:"<<endl;
         cout<<"-1. Salir"<<endl<<"4. Paso anterior      5.Paso siguiente "<<endl<<"1.Sacar carta del MACHO."<<endl<<"2.Hacer movimiento del MACHO"<<endl<<"3.Movimeinto entre Secciones"<<endl;
+        cout<<"6. Ver una carta"<<endl;
         cin>>opcion;
         if(opcion==1||opcion==2||opcion==3){
             llenarVariablesAnterior();
@@ -306,6 +307,41 @@ void EntornoDeJuego::Menu(){
                 llenarVariablesAnterior();
                 llenarVariablesActualesConSiguientes();
             }              
+                break;
+
+            case 6: 
+                int numPila;
+                int numCarta;
+                int op6;
+                cout<<"Ingrese el numero de pila o fila: ";cin>>numPila;
+                cout<<"Ingrese el numero de carta a mostrar: ";cin>>numCarta;
+                cout<<endl;
+                op6=0;
+                do{
+                    if(numPila<12 && numPila>0){
+                        if(!tablero.devolverInfoCarta( numCarta, movimiento.pilaInferior(pila5, pila6, pila7, pila8, pila9, pila10, pila11, numPila))){
+                            //cout<<"La carta no existe ingrese un valor correcto...."<<endl;
+                            numCarta--;
+                            tablero.devolverInfoCarta( numCarta, movimiento.pilaInferior(pila5, pila6, pila7, pila8, pila9, pila10, pila11, numPila));
+                        }
+                    }else{
+                        cout<<"MOVIMIENTO INVALIDO!!!!!!!"<<endl;
+                    }
+                    cout<<"1.ver siguiente"<<endl;
+                    cout<<"2.ver anterior"<<endl;
+                    cout<<"-1.salir"<<endl;
+                    cin>>op6;
+                    if(op6==1){
+                        numCarta++;
+                        
+                    }else if(op6==2){
+                        numCarta--;
+                        if(numCarta<1){
+                            numCarta=1;
+                        }
+                    }
+                }while(op6>0);
+                
                 break;
             default:
                 break;
